@@ -1,1 +1,117 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node
+{
+public:
+    string data;
+    Node *next;
+    Node(string value)
+    {
+        data = value;
+        next = nullptr;
+    }
+};
+
+class LinkedList
+{
+public:
+    Node *head;
+    LinkedList()
+    {
+        head = nullptr;
+    }
+
+    void insertAtFront(string value)
+    {
+        Node *newNode = new Node(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void insertAtEnd(string value)
+    {
+        Node *newNode = new Node(value);
+        if (head == nullptr)
+        {
+            head = newNode;
+            return;
+        }
+        Node *temp = head;
+        while (temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    void insertAfter(string target, string value)
+    {
+        Node *temp = head;
+        while (temp != nullptr && temp->data != target)
+        {
+            temp = temp->next;
+        }
+        if (temp != nullptr)
+        {
+            Node *newNode = new Node(value);
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    bool searchBook(string value)
+    {
+        Node *temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->data == value)
+            {
+                return true;
+            }
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    void displayList()
+    {
+        Node *temp = head;
+        while (temp != nullptr)
+        {
+            cout << temp->data << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+int main()
+{
+    LinkedList books;
+
+    books.insertAtEnd("Data Structures");
+    books.insertAtEnd("Operating Systems");
+    books.insertAtEnd("Computer Networks");
+    books.insertAtEnd("Database Systems");
+
+    books.insertAtFront("Artificial Intelligence");
+    books.insertAtEnd("Machine Learning");
+    books.insertAfter("Operating Systems", "Cyber Security");
+
+    if (books.searchBook("Database Systems"))
+    {
+        cout << "Database Systems found in library." << endl;
+    }
+    else
+    {
+        cout << "Database Systems not found." << endl;
+    }
+
+    cout << endl
+         << "Complete list of books:" << endl;
+    books.displayList();
+
+    return 0;
+}
 
