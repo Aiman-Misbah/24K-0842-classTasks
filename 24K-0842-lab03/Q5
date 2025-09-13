@@ -1,1 +1,88 @@
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+    string song;
+    Node *next;
+    Node(string s)
+    {
+        song = s;
+        next = NULL;
+    }
+};
+
+class Playlist
+{
+private:
+    Node *head;
+
+public:
+    Playlist()
+    {
+        head = NULL;
+    }
+    void addSong(string s)
+    {
+        Node *newNode = new Node(s);
+        if (!head)
+        {
+            head = newNode;
+            head->next = head;
+        }
+        else
+        {
+            Node *temp = head;
+            while (temp->next != head)
+            {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+            newNode->next = head;
+        }
+    }
+    void displayPlaylist()
+    {
+        if (!head)
+        {
+            cout << "Playlist is empty" << endl;
+            return;
+        }
+        Node *temp = head;
+        do
+        {
+            cout << temp->song << endl;
+            temp = temp->next;
+        } while (temp != head);
+    }
+    void playSongs(int rounds)
+    {
+        if (!head)
+        {
+            cout << "Playlist is empty" << endl;
+            return;
+        }
+        Node *temp = head;
+        for (int i = 0; i < rounds; i++)
+        {
+            cout << "Now playing: " << temp->song << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+int main()
+{
+    Playlist p;
+    p.addSong("Pasoori");
+    p.addSong("Afreen Afreen");
+    p.addSong("Sohni Dharti");
+    p.addSong("Dil Dil Pakistan");
+    cout << "Playlist:" << endl;
+    p.displayPlaylist();
+    cout << endl;
+    p.playSongs(7);
+    return 0;
+}
 
