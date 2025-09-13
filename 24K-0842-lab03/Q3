@@ -1,1 +1,117 @@
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+    int data;
+    Node *prev;
+    Node *next;
+    Node(int value)
+    {
+        data = value;
+        prev = NULL;
+        next = NULL;
+    }
+};
+
+class DoublyLinkedList
+{
+private:
+    Node *head;
+    Node *tail;
+
+public:
+    DoublyLinkedList()
+    {
+        head = NULL;
+        tail = NULL;
+    }
+
+    void addCompartment(int value)
+    {
+        Node *newNode = new Node(value);
+        if (head == NULL)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    void removeFirst()
+    {
+        if (head == NULL)
+        {
+            return;
+        }
+        Node *temp = head;
+        head = head->next;
+        if (head != NULL)
+        {
+            head->prev = NULL;
+        }
+        else
+        {
+            tail = NULL;
+        }
+        delete temp;
+    }
+
+    bool searchCompartment(int value)
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            if (temp->data == value)
+            {
+                return true;
+            }
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    void display()
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    DoublyLinkedList train;
+    train.addCompartment(101);
+    train.addCompartment(102);
+    train.addCompartment(103);
+    train.addCompartment(104);
+
+    cout << "Initial train compartments:" << endl;
+    train.display();
+
+    cout << "Removing the first compartment..." << endl;
+    train.removeFirst();
+    train.display();
+
+    cout << "Searching for compartment 103: " << (train.searchCompartment(103) ? "Found" : "Not Found") << endl;
+    cout << "Searching for compartment 110: " << (train.searchCompartment(110) ? "Found" : "Not Found") << endl;
+
+    cout << "Adding more compartments..." << endl;
+    train.addCompartment(105);
+    train.addCompartment(106);
+    train.display();
+
+    return 0;
+}
 
