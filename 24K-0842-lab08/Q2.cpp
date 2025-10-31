@@ -128,37 +128,26 @@ public:
 int main()
 {
     BinaryTree tree;
-    int n;
-    cout << "Enter number of clients: ";
-    cin >> n;
-    cin.ignore();
 
-    for (int i = 0; i < n; i++)
-    {
-        if (i == 0)
-        {
-            string rootName;
-            cout << "Enter root client name: ";
-            getline(cin, rootName);
-            tree.insertRoot(rootName);
-        }
-        else
-        {
-            string parentName, childName;
-            char side;
-            cout << "Enter new client name: ";
-            getline(cin, childName);
-            cout << "Enter parent client name: ";
-            getline(cin, parentName);
-            cout << "Add to Left or Right of " << parentName << "? (L/R): ";
-            cin >> side;
-            cin.ignore();
-            tree.insertChild(parentName, childName, side);
-        }
-        cout << endl;
-    }
+    cout << "Building Client Data Tree..." << endl
+         << endl;
 
-    cout << "Client Data Tree:" << endl;
+    tree.insertRoot("TechCorp Pakistan");
+
+    tree.insertChild("TechCorp Pakistan", "Lahore Branch", 'L');
+    tree.insertChild("TechCorp Pakistan", "Karachi Branch", 'R');
+
+    tree.insertChild("Lahore Branch", "Client Ali (PKR 50000)", 'L');
+    tree.insertChild("Lahore Branch", "Client Sara (PKR 75000)", 'R');
+
+    tree.insertChild("Karachi Branch", "Client Hamza (PKR 65000)", 'L');
+    tree.insertChild("Karachi Branch", "Client Fatima (PKR 90000)", 'R');
+
+    tree.insertChild("Client Ali (PKR 50000)", "Subclient Hina (+92 3341234567)", 'L');
+    tree.insertChild("Client Ali (PKR 50000)", "Subclient Zain (+92 3129876543)", 'R');
+
+    cout << endl
+         << "Client Data Tree Structure:" << endl;
     tree.display(tree.root);
     cout << endl;
 
@@ -166,9 +155,9 @@ int main()
     int leafNodes = tree.countLeaves(tree.root);
     int height = tree.findHeight(tree.root);
 
-    cout << "Total Clients: " << totalNodes << endl;
+    cout << "Total Clients (including branches): " << totalNodes << endl;
     cout << "Leaf Clients (no sub-clients): " << leafNodes << endl;
-    cout << "Height of Tree: " << height << endl;
+    cout << "Height of Client Tree: " << height << endl;
 
     return 0;
 }
