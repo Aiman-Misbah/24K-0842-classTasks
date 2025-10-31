@@ -103,39 +103,28 @@ public:
 int main()
 {
     BinaryTree tree;
-    int n;
-    cout << "Enter number of tour packages: ";
-    cin >> n;
-    cin.ignore();
 
-    for (int i = 0; i < n; i++)
-    {
-        if (i == 0)
-        {
-            string rootName;
-            cout << "Enter root package name: ";
-            getline(cin, rootName);
-            tree.insertRoot(rootName);
-        }
-        else
-        {
-            string parentName, childName;
-            char side;
-            cout << "Enter new package name: ";
-            getline(cin, childName);
-            cout << "Enter parent package name: ";
-            getline(cin, parentName);
-            cout << "Add to Left or Right of " << parentName << "? (L/R): ";
-            cin >> side;
-            cin.ignore();
-            tree.insertChild(parentName, childName, side);
-        }
-        cout << endl;
-    }
+    cout << "Building Tour Package Hierarchy..." << endl
+         << endl;
 
-    cout << "Tour Package Hierarchy:" << endl;
+    tree.insertRoot("Pakistan Tours");
+
+    tree.insertChild("Pakistan Tours", "Northern Areas", 'L');
+    tree.insertChild("Pakistan Tours", "Southern Adventures", 'R');
+
+    tree.insertChild("Northern Areas", "Hunza Valley Package", 'L');
+    tree.insertChild("Northern Areas", "Skardu Expedition", 'R');
+
+    tree.insertChild("Southern Adventures", "Karachi Beach Tour", 'L');
+    tree.insertChild("Southern Adventures", "Gwadar Coastal Drive", 'R');
+
+    tree.insertChild("Hunza Valley Package", "Karimabad Special", 'L');
+    tree.insertChild("Hunza Valley Package", "Khunjerab Pass Visit", 'R');
+
+    cout << endl
+         << "Final Tour Package Hierarchy:" << endl;
     tree.display(tree.root);
+    cout << endl;
 
     return 0;
 }
-
